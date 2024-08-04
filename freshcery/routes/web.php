@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Users\UsersController;
 use App\Http\Controllers\Products\ProductsController;
 
 Route::get('/', function () {
@@ -29,3 +30,6 @@ Route::post('products/prepare-checkout', [ProductsController::class, 'prepareChe
 Route::get('products/checkout', [ProductsController::class, 'checkout'])->name('products.checkout');
 Route::post('products/checkout', [ProductsController::class, 'processcheckout'])->name('products.process.checkout');
 Route::get('products/pay', [ProductsController::class, 'pay'])->name('products.pay');
+
+//users pages
+Route::get('users/my-orders', [UsersController::class, 'myOrders'])->name('users.orders');
