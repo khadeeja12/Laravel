@@ -28,4 +28,4 @@ Route::get('products/delete-cart/{id}', [ProductsController::class, 'deleteFromC
 Route::post('products/prepare-checkout', [ProductsController::class, 'prepareCheckout'])->name('products.prepare.checkout');
 Route::get('products/checkout', [ProductsController::class, 'checkout'])->name('products.checkout');
 Route::post('products/checkout', [ProductsController::class, 'processcheckout'])->name('products.process.checkout');
-Route::get('products/pay', [ProductsController::class, 'payWithPaypal'])->name('products.pay');
+Route::get('products/pay', [ProductsController::class, 'pay'])->name('products.pay');

@@ -150,12 +150,10 @@ class ProductsController extends Controller
     }
 
 
-    public function payWithPaypal()
+    public function pay()
    {
 
-     echo "pay with paypal";
-
-     //return view('products.checkout',compact('cartItems','checkoutSubtotal'));
+     return view('products.pay');
    }
 
 }
