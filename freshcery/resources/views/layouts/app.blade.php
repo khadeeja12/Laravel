@@ -67,11 +67,11 @@
                         @else
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div> {{ Auth::user()->name }}
+                                <div class="avatar-header"><img src="{{asset('assets/users_images/'.Auth::user()->image.'')}}"></div> {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{route('users.orders')}}">Transactions History</a>
-                                <a class="dropdown-item" href="setting.html">Settings</a>
+                                <a class="dropdown-item" href="{{route('users.settings')}}">Settings</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                             document.getElementById('logout-form').submit();">

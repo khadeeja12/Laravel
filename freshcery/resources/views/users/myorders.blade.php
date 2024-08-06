@@ -39,7 +39,7 @@
                                 @if($orders->count() > 0)
                                 @foreach($orders as $order)
                                 <tr>
-                                    <td>{{$order->id}}</td>
+                                    <td></td>
                                     <td>
                                         {{$order->name}}
                                     </td>
