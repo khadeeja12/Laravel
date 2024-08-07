@@ -25,15 +25,15 @@ Route::get('/single-product/{id}', [ProductsController::class, 'singleProduct'])
 Route::get('/shop', [ProductsController::class, 'shop'])->name('products.shop');
 
 //CART
-Route::post('/add-cart', [ProductsController::class, 'addToCart'])->name('products.add.cart');
-Route::get('/cart', [ProductsController::class, 'cart'])->name('products.cart');
-Route::get('/delete-cart/{id}', [ProductsController::class, 'deleteFromCart'])->name('products.cart.delete');
+Route::post('/add-cart', [ProductsController::class, 'addToCart'])->name('products.add.cart')->middleware('auth');
+Route::get('/cart', [ProductsController::class, 'cart'])->name('products.cart')->middleware('auth');
+Route::get('/delete-cart/{id}', [ProductsController::class, 'deleteFromCart'])->name('products.cart.delete')->middleware('auth');
 
 //checkout and paying
-Route::post('/prepare-checkout', [ProductsController::class, 'prepareCheckout'])->name('products.prepare.checkout');
-Route::get('/checkout', [ProductsController::class, 'checkout'])->name('products.checkout');
-Route::post('/checkout', [ProductsController::class, 'processcheckout'])->name('products.process.checkout');
-Route::get('/pay', [ProductsController::class, 'pay'])->name('products.pay');
+Route::post('/prepare-checkout', [ProductsController::class, 'prepareCheckout'])->name('products.prepare.checkout')->middleware('auth');
+Route::get('/checkout', [ProductsController::class, 'checkout'])->name('products.checkout')->middleware('auth');
+Route::post('/checkout', [ProductsController::class, 'processcheckout'])->name('products.process.checkout')->middleware('auth');
+Route::get('/pay', [ProductsController::class, 'pay'])->name('products.pay')->middleware('auth');
    
 });
  
@@ -41,7 +41,7 @@ Route::get('/pay', [ProductsController::class, 'pay'])->name('products.pay');
 
 Route::group(['prefix'=>'users'],function(){
 //users pages
-Route::get('/my-orders', [UsersController::class, 'myOrders'])->name('users.orders');
-Route::get('/settings', [UsersController::class, 'settings'])->name('users.settings');
-Route::post('/settings/{id}', [UsersController::class, 'updateUserSettings'])->name('users.settings.update');
+Route::get('/my-orders', [UsersController::class, 'myOrders'])->name('users.orders')->middleware('auth');
+Route::get('/settings', [UsersController::class, 'settings'])->name('users.settings')->middleware('auth');
+Route::post('/settings/{id}', [UsersController::class, 'updateUserSettings'])->name('users.settings.update')->middleware('auth');
 });

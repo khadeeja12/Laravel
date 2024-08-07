@@ -67,16 +67,19 @@
                         <input name="pro_id" value="{{$product->id}}" type="hidden">
                         <input name="image" value="{{$product->image}}" type="hidden">
 
-                       
-                     @if($checkInCart >0)
-                        <button disabled class="mt-3 btn btn-primary btn-lg">
-                        <i class="fa fa-shopping-basket"></i> Add to Cart
-                        </button>
+                     @if(isset(Auth::user()->id))  
+                             @if($checkInCart >0)
+                            <button disabled class="mt-3 btn btn-primary btn-lg">
+                            <i class="fa fa-shopping-basket"></i> Add to Cart
+                               </button>
+                             @else
+                             <button type="submit" name="submit" class="mt-3 btn btn-primary btn-lg">
+                             <i class="fa fa-shopping-basket"></i> Add to Cart
+                              </button>
+                              @endif
                     @else
-                        <button type="submit" name="submit" class="mt-3 btn btn-primary btn-lg">
-                        <i class="fa fa-shopping-basket"></i> Add to Cart
-                        </button>
-                    @endif
+                    <p class="alert alert-success mt-5">login to add product to cart</p>
+                      @endif  
                     </form>
                 </div>
             </div>

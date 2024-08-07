@@ -29,13 +29,19 @@ class ProductsController extends Controller
     ->where('id','!=',$id)
     ->get();
 
+    if(isset(auth::user()->id))
+    {
+   
     $checkInCart=Cart::where('pro_id',$id)
     ->where('user_id',Auth::user()->id)
     ->count(); //if number 1 , matches if 0 not match
 
     return view('products.singleproduct',compact('product','relatedProducts','checkInCart'));
     }
-
+    else{
+      return view('products.singleproduct',compact('product','relatedProducts'));
+    }
+  }
     public function shop()
     {
         $categories=Category::select()->orderBy('id','desc')->get();
