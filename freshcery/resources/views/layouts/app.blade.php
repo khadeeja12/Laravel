@@ -51,6 +51,15 @@
                     <!-- Navbar Menu -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
+                            <a href="{{route('home')}}" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('about')}}" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('contact')}}" class="nav-link">Contact</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('products.shop')}}" class="nav-link">Shop</a>
                         </li>
                         @guest
@@ -85,7 +94,7 @@
                           </li>
                         <li class="nav-item">
                             <a href="{{route('products.cart')}}" class="nav-link" data-toggle="" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary">5</span>
+                                <i class="fa fa-shopping-basket"></i> 
                             </a>
                           
                         </li>

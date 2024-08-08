@@ -6,16 +6,18 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Users\UsersController;
 use App\Http\Controllers\Products\ProductsController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/home', function () {
+//     return view('welcome');
+// });
 
-Auth::routes();
+Auth::routes();  
 
 Route::get('/home', [HomeController::class, 'index'])->name('home'); // (URL , ARRAY) 
-                                                                      // ARRAY- CONTROLLER,FUNCTIONNAME  
-                                                                      //NAME OF THE ROUTE - HELPS IN REDIRECTION TO ROUTE
-//grouping of routes
+ Route::get('/', [HomeController::class, 'index'])->name('home');                                                                      // ARRAY- CONTROLLER,FUNCTIONNAME  
+ Route::get('/about', [HomeController::class, 'about'])->name('about');                                                            //NAME OF THE ROUTE - HELPS IN REDIRECTION TO ROUTE
+ Route::get('/contact', [HomeController::class, 'contact'])->name('contact'); 
+
+ //grouping of routes
 
 Route::group(['prefix'=>'products'],function()
 {
@@ -45,3 +47,10 @@ Route::get('/my-orders', [UsersController::class, 'myOrders'])->name('users.orde
 Route::get('/settings', [UsersController::class, 'settings'])->name('users.settings')->middleware('auth');
 Route::post('/settings/{id}', [UsersController::class, 'updateUserSettings'])->name('users.settings.update')->middleware('auth');
 });
+
+
+
+//admin panel
+Route::post('admin/login', [AdminsController::class, 'viewLogin'])->name('view.login');
+
+
