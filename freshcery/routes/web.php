@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Users\UsersController;
+use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Products\ProductsController;
 
 // Route::get('/home', function () {
@@ -51,6 +52,23 @@ Route::post('/settings/{id}', [UsersController::class, 'updateUserSettings'])->n
 
 
 //admin panel
-Route::post('admin/login', [AdminsController::class, 'viewLogin'])->name('view.login');
+Route::get('admin/login', [AdminsController::class, 'viewLogin'])->name('view.login');
+Route::post('admin/login', [AdminsController::class, 'checkLogin'])->name('check.login');
 
 
+Route::group(['prefix'=>'admins','middleware'=>'auth:admin'],function(){
+
+//admins
+Route::get('/index', [AdminsController::class, 'index'])->name('admins.dashboard');
+Route::get('/all-admins', [AdminsController::class, 'displayAdmins'])->name('admins.all');
+Route::get('/create-admins', [AdminsController::class, 'createAdmins'])->name('admins.create');
+Route::post('/create-admins', [AdminsController::class, 'storeAdmins'])->name('admins.store');
+
+//categories
+Route::get('/all-categories', [AdminsController::class, 'displayCategories'])->name('categories.all');
+
+
+
+});
+// Route for logging out
+ Route::post('logout', [AdminsController::class, 'logout'])->name('logout');
