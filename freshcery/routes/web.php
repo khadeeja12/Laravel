@@ -72,6 +72,18 @@ Route::get('/edit-categories/{id}', [AdminsController::class, 'editCategories'])
 Route::post('/update-categories/{id}', [AdminsController::class, 'updateCategories'])->name('categories.update');
 Route::get('/delete-categories/{id}', [AdminsController::class, 'deleteCategories'])->name('categories.delete');
 
+
+//products
+Route::get('/all-products', [AdminsController::class, 'displayProducts'])->name('products.all');
+Route::get('/create-products', [AdminsController::class, 'createProducts'])->name('products.create');
+Route::post('/create-products', [AdminsController::class, 'storeProducts'])->name('products.store');
+Route::get('/delete-products/{id}', [AdminsController::class, 'deleteProducts'])->name('products.delete');
+
+//orders
+Route::get('/all-orders', [AdminsController::class, 'allOrders'])->name('orders.all');
+Route::get('/edit-orders/{id}', [AdminsController::class, 'editOrders'])->name('orders.edit');
+Route::post('/update-orders/{id}', [AdminsController::class, 'updateOrders'])->name('orders.update');
+
 });
 // Route for logging out
  Route::post('logout', [AdminsController::class, 'logout'])->name('logout');

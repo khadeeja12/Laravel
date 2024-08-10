@@ -149,4 +149,93 @@ class AdminsController extends Controller
             
     }
 
+    //products
+    public function displayProducts()
+    {
+        $allProducts=Product::select()->orderBy('id','desc')->get();
+        
+         return view('admins.allproducts',compact('allProducts'));
+            
+    }
+
+    public function createProducts()
+    {
+        $allCategories=Category::all();
+       
+         return view('admins.createproducts',compact('allCategories'));
+            
+    }
+
+    public function storeProducts(Request $request)
+    {
+
+          $destinationPath='assets/img/';
+          $myimage=$request->image->getClientOriginalName();
+          $request->image->move(public_path($destinationPath),$myimage);
+
+          $storeProducts=Product::create([
+            "price"=>$request->price,
+            "name"=>$request->name,
+            "description"=>$request->description,
+            "category_id"=>$request->category_id,
+            "exp_date"=>$request->exp_date,
+            "image"=>$myimage,
+          ]);
+             
+          if($storeProducts)
+          {
+            return Redirect::route('products.all')->with(['success'=>'product created successfully']);
+          }
+            
+    }
+
+    public function deleteProducts($id)
+    {
+          $product=Product::find($id);
+          if(File::exists(public_path('assets/img/'.$product->image))){
+            File::delete(public_path('assets/img/'.$product->image));
+          }else{
+            
+          }
+
+          $product->delete();
+             
+          if($product)
+          {
+            return Redirect::route('products.all')->with(['delete'=>'product deleted successfully']);
+          }
+            
+    }
+
+    //orders
+    public function allOrders()
+    {
+        $allOrders=Order::select()->orderBy('id','desc')->get();
+        
+         return view('admins.allorders',compact('allOrders'));
+            
+    }
+
+    public function editOrders($id)
+    {
+       $order=Order::find($id);
+
+        return view('admins.editorders',compact('order'));
+            
+    }
+
+
+    public function updateOrders(Request $request,$id)
+    {
+          $order=Order::find($id);
+
+          $order->update($request->all());
+             
+          if($order)
+          {
+            return Redirect::route('orders.all')->with(['update'=>'Order updated successfully']);
+          }
+            
+    }
+
 }
