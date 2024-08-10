@@ -9,6 +9,7 @@ use App\Models\Product\Product;
 use App\Models\Product\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Admin\AdminsController;
@@ -70,7 +71,7 @@ class AdminsController extends Controller
              
           if($storeAdmins)
           {
-            return Redirect::route('admins.all')->with(['success'=>'admin create successfully']);
+            return Redirect::route('admins.all')->with(['success'=>'admin created successfully']);
           }
             
     }
@@ -82,4 +83,70 @@ class AdminsController extends Controller
          return view('admins.allcategories',compact('allCategories'));
             
     }
+    public function createCategories()
+    {
+       
+         return view('admins.createcategories');
+            
+    }
+
+    public function storeCategories(Request $request)
+    {
+
+          $destinationPath='assets/img/';
+          $myimage=$request->image->getClientOriginalName();
+          $request->image->move(public_path($destinationPath),$myimage);
+
+          $storeCategories=Category::create([
+            "icon"=>$request->icon,
+            "name"=>$request->name,
+            "image"=>$myimage,
+          ]);
+             
+          if($storeCategories)
+          {
+            return Redirect::route('categories.all')->with(['success'=>'category created successfully']);
+          }
+            
+    }
+ 
+    public function editCategories($id)
+    {
+       $category=Category::find($id);
+         return view('admins.editcategories',compact('category'));
+            
+    }
+    
+
+    public function updateCategories(Request $request,$id)
+    {
+          $category=Category::find($id);
+
+          $category->update($request->all());
+             
+          if($category)
+          {
+            return Redirect::route('categories.all')->with(['update'=>'category updated successfully']);
+          }
+            
+    }
+
+    public function deleteCategories($id)
+    {
+          $category=Category::find($id);
+          if(File::exists(public_path('assets/img/'.$category->image))){
+            File::delete(public_path('assets/img/'.$category->image));
+          }else{
+            
+          }
+
+          $category->delete();
+             
+          if($category)
+          {
+            return Redirect::route('categories.all')->with(['delete'=>'category deleted successfully']);
+          }
+            
+    }
+
 }

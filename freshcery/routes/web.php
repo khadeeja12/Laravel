@@ -66,8 +66,11 @@ Route::post('/create-admins', [AdminsController::class, 'storeAdmins'])->name('a
 
 //categories
 Route::get('/all-categories', [AdminsController::class, 'displayCategories'])->name('categories.all');
-
-
+Route::get('/create-categories', [AdminsController::class, 'createCategories'])->name('categories.create');
+Route::post('/create-categories', [AdminsController::class, 'storeCategories'])->name('categories.store');
+Route::get('/edit-categories/{id}', [AdminsController::class, 'editCategories'])->name('categories.edit');
+Route::post('/update-categories/{id}', [AdminsController::class, 'updateCategories'])->name('categories.update');
+Route::get('/delete-categories/{id}', [AdminsController::class, 'deleteCategories'])->name('categories.delete');
 
 });
 // Route for logging out
