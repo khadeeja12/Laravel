@@ -6,3 +6,5 @@
 
 <p>php run dev</p>
 <p>php artisan serve</p>
+
+composer create-project laravel/laravel grocery<br>
